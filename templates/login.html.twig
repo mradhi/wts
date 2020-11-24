@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'identifier{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/inscription.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include '_header_guest.html.twig' %}
+
+    <div class="cnt1">
+        <p class="p-text1">
+            W.T.S Vous accueil dans sa plateforme, inscrivez-vous pour vous recevoir
+            les actualités et pour communiquer vos collègues de travail.
+        </p>
+        <div class="form-insc">
+            {{ form_start(register_form) }}
+            {{ form_widget(register_form) }}
+            <button type="submit" class="btn btn-success button-insc">Inscription</button>
+            {{ form_end(register_form) }}
+        </div>
+    </div>
+
+    <div class="cnt2">
+        <h3 class="titre-text2">Debout pour plus de précision</h3>
+        <p class="p-texte2">
+            <rose>C'est la plateforme</rose> qui aide les géomètres à connaitre les coordonnées de points de rattachement établis
+            dans les divers projets et qui apporte non seulement de rapidité et de précision aux portes, mais qui les
+            ouvre également. WTS c'est le synonyme d'innovation, d'optimisme, de rapidité et surtout <rose>de service.</rose>
+        </p>
+        <img src="{{ asset('assets/images/platforme.png') }}" class="image" alt="">
+    </div>
+{% endblock %}

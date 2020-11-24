@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Importer des points{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include '_header_user.html.twig' %}
+    {% include '_sidebar_user.html.twig' %}
+
+    <div class="conteneur">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Importer des points</div>
+            <div class="panel-body">
+                {{ form_start(import_form) }}
+                {{ form_widget(import_form) }}
+                <button type="submit" class="btn btn-success">Importer</button>
+                {{ form_end(import_form) }}
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Saisie un point</div>
+            <div class="panel-body">
+                {{ form_start(point_form) }}
+                {{ form_widget(point_form) }}
+                <button type="submit" class="btn btn-success">Ajouter</button>
+                {{ form_end(point_form) }}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

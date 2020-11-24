@@ -1,0 +1,38 @@
+<div class="cont-sidebar">
+
+    {% if app.request.get('_route') == 'app_idea_map' %}
+        <!-- Le menu cartographique ne devrait s'ouvrir que sur la page carte -->
+        <h6 class="titre-li">Outils cartographique :</h6>
+        <div class="cont-li">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_idea_import') }}">Importer point</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_idea_export') }}">Exporter point</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Evaluer point</a></li>
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Fin menu cartographique -->
+    <!-- Les menus qui doivent être affichées sur toutes les pages -->
+    <h6 class="titre-li">Messagerie :</h6>
+    <div class="cont-li">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="{{ path('app_conversations_index') }}">Boite de réception</a>
+            </li>
+        </ul>
+    </div>
+    <!-- Les noms des utilisateurs abonnés doivent être affichés ici -->
+    <h6 class="titre-li">Membre :</h6>
+    <div class="cont-membre pr0 pr1 pr2 pr3 pr4">
+        <ul class="nav flex-column">
+            {% for user in context.users %}
+                {% if app.user != user %}
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ path('app_conversations_messages', {'receiver': user.id}) }}">{{ user.fullName }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>

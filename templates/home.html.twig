@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include '_header_user.html.twig' %}
+    {% include '_sidebar_user.html.twig' %}
+
+    <div class="conteneur">
+        <div>
+            <h3 class="titre-accueil">Bienvenue
+                <rose>{{ app.user.firstName }}</rose>
+            </h3>
+            <p class="p-cont">
+                Vous pouvez publier vos notes et gérer vos plans, documents et autres sur votre accueil.
+                Ceci ne sera visible que pour vous.
+            </p>
+        </div>
+
+        {{ form_start(form, {'attr': {'class': 'form-pub'}}) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control text-area', 'placeholder': 'Vous pouvez écrire vos statuts ici_Exprimez vous ' ~ app.user.firstName}}) }}
+        <div class="button-pub">
+            <button type="submit" class="btn btn-success button-insc">Publier</button>
+            <a href="{{ path('app_idea_home') }}" type="button" class="btn btn-success button-insc">Annuler</a>
+        </div>
+        {{ form_end(form) }}
+
+
+        {% for post in posts %}
+            <div class="pub">
+                <p class="titre-pub">Votre publication : <span
+                            class="date-pub">{{ post.createdAt|date('h:i d/m/Y') }}</span></p>
+                <div class="statut-pub">
+                    {{ post.content }}
+                    <ul class="liste-pub">
+                        <li class="liens-pub"><a href="{{ path('app_posts_edit', {'post': post.id}) }}">Modifier</a>
+                        </li>
+                        <li class="liens-pub"><a href="{{ path('app_posts_delete', {'post': post.id}) }}">Supprimer</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

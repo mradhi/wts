@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un point{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include '_header_user.html.twig' %}
+    {% include '_sidebar_user.html.twig' %}
+
+    <div class="conteneur">
+        <div>
+            <p class="p-cont">
+                Modifier un point
+            </p>
+        </div>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="button-pub">
+            <button type="submit" class="btn btn-success button-insc">Modifier</button>
+            <a href="{{ path('app_idea_export') }}" type="button" class="btn btn-success button-insc">Annuler</a>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

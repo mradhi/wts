@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}La carte{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.css"
+          integrity="sha512-qm+jY0iQ4Xf5RL79UB75REDLYD0jtvxxVZp2RVIW8sm8RNiHdeN43oksqUPrBIshJtQcVPrAL08ML2Db8fFZiA=="
+          crossorigin="anonymous"/>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/leaflet-mouse-position@1.2.0/src/L.Control.MousePosition.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@geoman-io/leaflet-geoman-free@2.8.0/dist/leaflet-geoman.css"
+          integrity="sha256-xZrtPmwQ7x5d6tHRn08eiidcwC6xODL5RIsVqMictew=" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/circle.css') }}">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+{% endblock %}
+
+{% block body %}
+    {% include '_header_user.html.twig' %}
+    {% include '_sidebar_user.html.twig' %}
+
+    <div class="conteneur">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div>
+            <p class="p-cont">
+                Vous trouvez ici les différents canevas d'appuis tels que les points de rattachement publiés par les
+                autres membres abonnés vous pouvez importer, exporter ou évaluer des points. Merci d'avoir participé à
+                l'amélioration de notre base de données...
+            </p>
+        </div>
+
+        <div id="map">
+
+        </div>
+
+    </div>
+
+    <div style="display: none">
+        <div class="marker-popup-voted row">
+            <div class="center-block" style="width: 50%">
+                <div class="c100 p[reliability] small" style="margin-right: 5px;">
+                    <span>[reliability]%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div>
+
+                <div class="vote" style="display: flex; flex-direction:column; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                    <span style="color: gray; font-size: 18px">
+                        <i class="glyphicon glyphicon-chevron-up"></i>
+                    </span>
+                    </div>
+
+                    <div>
+                    <span style="color: gray; font-size: 18px">
+                        <i class="glyphicon glyphicon-chevron-down"></i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Par</th>
+                    <td>[user]</td>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <td>[identifier]</td>
+                </tr>
+                <tr>
+                    <th>X</th>
+                    <td>[x]</td>
+                </tr>
+                <tr>
+                    <th>Y</th>
+                    <td>[y]</td>
+                </tr>
+                <tr>
+                    <th>Z</th>
+                    <td>[z]</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="marker-popup-unvoted row">
+            <div class="center-block" style="width: 50%">
+                <div class="c100 p[reliability] small" style="margin-right: 5px;">
+                    <span>[reliability]%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div>
+
+                <div class="vote" style="display: flex; flex-direction:column; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <a style="color: green; font-size: 18px"
+                           href="/app/vote/[id]/up">
+                            <i class="glyphicon glyphicon-chevron-up"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <a style="color: red; font-size: 18px"
+                           href="/app/vote/[id]/down">
+                            <i class="glyphicon glyphicon-chevron-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Par</th>
+                    <td>[user]</td>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <td>[identifier]</td>
+                </tr>
+                <tr>
+                    <th>X</th>
+                    <td>[x]</td>
+                </tr>
+                <tr>
+                    <th>Y</th>
+                    <td>[y]</td>
+                </tr>
+                <tr>
+                    <th>Z</th>
+                    <td>[z]</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.js"
+            integrity="sha512-WL3nAJlWFKoDShduxQRyY3wkBnQsINXdIfWIW48ZaPgYz1wYNnxIwFMMgigzSgjNBC2WWZ8Y8/sSyUU6abuF0g=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-mouse-position@1.2.0/src/L.Control.MousePosition.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@geoman-io/leaflet-geoman-free@2.8.0/dist/leaflet-geoman.min.js"
+            integrity="sha256-6GhnMfh48/pMAq9Jtd1b4eUe9OsKdrQ9tlVO1Vs0L68=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        let OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        let WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
+
+        let map = L.map('map', {
+            layers: [OpenStreetMap],
+            center: [0, 0],
+            zoom: 14,
+            maxZoom: 18	//// zoom by default
+        });
+
+        // Add layers
+        L.control.layers({
+            "Open Street Map": OpenStreetMap,
+            "World Imagery": WorldImagery
+        }, {}).addTo(map);
+
+        // Add minimap
+        let osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {minZoom: 0, maxZoom: 13});
+        let miniMap = new L.Control.MiniMap(osm, {toggleDisplay: true}).addTo(map);
+
+        // Add the scale control to the map
+        L.control.scale().addTo(map);
+
+        // Add the mouse position to the map
+        L.control.mousePosition({position: 'bottomright'}).addTo(map);
+
+        // add leaflet controls with some options to the map
+        map.pm.addControls({
+            position: 'topleft',
+            drawCircle: false,
+        });
+
+        $.get('{{ path('app_idea_api_points') }}', function (data) {
+            data.forEach(function (point) {
+                // Get the div
+                let popupContent = point.voted ? $('.marker-popup-voted').clone() : $('.marker-popup-unvoted').clone();
+
+                popupContent = popupContent.html()
+                    .replaceAll('[reliability]', point.reliability)
+                    .replaceAll('[id]', point.id)
+                    .replaceAll('[identifier]', point.identifier)
+                    .replaceAll('[x]', point.x)
+                    .replaceAll('[y]', point.y)
+                    .replaceAll('[z]', point.z)
+                    .replaceAll('[user]', point.user)
+
+                L.marker([point.x, point.y])
+                    .addTo(map)
+                    .bindPopup(popupContent, {minWidth: 175});
+            });
+
+        });
+    </script>
+{% endblock %}

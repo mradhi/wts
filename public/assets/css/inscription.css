@@ -1,0 +1,161 @@
+body {
+	background: linear-gradient(to bottom right, white, #bcbdc4);
+	min-height: 100%;
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.logo{
+	position: relative;
+	width: 360px;
+	height: 48px;
+	top: 1px;
+	left: 95px;
+	/*background-color: blueviolet;*/
+}
+/*Début Formulaire d'authentification*/
+.form-auth{
+	position: absolute;
+	right: 85px;
+	padding: 5px;
+	top: 8px;
+	/*background: rgb(68, 128, 0);*/
+}
+.input-auth{
+	border : 0;
+	height: 24px;
+	border-radius: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-right: 15px;
+	/* border: 1px solid red; */
+}
+.button-auth{
+	height: 24px;
+	border : 0;
+	border-radius: 3px;
+	margin-left: 8px;
+}
+/*Fin Formulaire d'authentification*/
+.cnt1 {
+	float: left;
+	width: 500px;
+	min-height: 400px;
+	margin-left: 80px;
+	margin-top: 95px;
+	/*background: rgb(202, 42, 42);*/
+}
+.p-text1{
+	position: relative;
+	text-align: justify;
+	width: 385px;
+	margin-left: 20px;
+	line-height: 130%;
+	font-family: verdana;
+	/*background: yellow;*/
+}
+.alert{
+	position: relative;
+	left: 65px;
+	width: 300px;
+	/*background: orangered;*/
+}
+/*Début Formulaire d'inscription*/
+.form-insc{
+	position: relative;
+	left: 80px;
+	width: 260px;
+	height: 400px;
+	padding-top: 10px;
+	/*background: rgb(68, 128, 0);*/
+}
+.input-insc-sm{
+	border : 1px solid #b5b5b5;
+	width: 110px;
+	height: 30px;
+	border-radius: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-right: 15px;
+	margin-bottom: 13px;
+}
+.input-insc-lg{
+	border : 1px solid #b5b5b5;
+	width: 239px;
+	height: 30px;
+	border-radius: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-bottom: 13px;
+}
+.int-line{
+	margin-top: 0px;
+}
+.titre{
+    font-weight: bold;
+}
+.liste-der{
+	border : 1px solid #b5b5b5;
+	height: 28px;
+	border-radius: 4px;
+	padding-left: 3px;
+	padding-right: 3px;
+	margin-right: 4px;
+}
+.td-radio{
+	padding-left: 10px;
+	padding-right: 5px;
+}
+.td-text-radio{
+	padding-right: 5px;
+}
+.button-insc{
+	position: absolute;
+	margin-top: 25px;
+	left: 10px;
+}
+/*Fin Formulaire d'inscription*/
+.cnt2 {
+	float: right;
+	width: 520px;
+	min-height: 400px;
+	margin-top: 85px;
+	margin-right: 105px;
+	font-family: verdana;
+	/* background: blue; */
+}
+.titre-text2 {
+	position: relative;
+	margin-top: 0px;
+	margin-left: 60px;
+	width: 370px;
+	/*background: gray;*/
+}
+rose{
+	color: rgb(255, 91, 118);
+}
+.p-texte2 {
+	position: relative;
+	left: 10px;
+	width: 485px;
+	font-size: 13px;
+	line-height: 130%;
+	text-align: justify;
+	/*background: pink;*/
+}
+.image{
+	position: relative;
+	top: 10px;
+	width: 500px;
+	height: 380px;
+	/*background: yellow;*/
+}
+.success{
+	position: relative;
+	font-weight: bold;
+	font-size: 13px;
+	text-align: center;
+	top: 30px;
+	left: 5px;
+	width: 400px;
+	/*background: orangered;*/
+}

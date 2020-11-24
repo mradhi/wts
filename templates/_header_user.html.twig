@@ -1,0 +1,15 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <img src="{{ asset('assets/images/Logo.png') }}" class="logo">
+    <div class="nav-bar-marge">
+        <ul class="nav navbar-nav">
+            <li><a href="{{ path('app_idea_home') }}">Accueil</a></li>
+            <li><a href="{{ path('app_idea_map') }}">Carte</a></li>
+            <li><a href="{{ path('app_idea_forum') }}">Forum</a></li>
+        </ul>
+    </div>
+    <div class="dcnx">
+        <ul class="nav navbar-nav ">
+            <li><a href="{{ path('app_security_logout') }}">Dèconnexion [{{ app.user.username }}]</a></li>
+        </ul>
+    </div>
+</div>

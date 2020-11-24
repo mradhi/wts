@@ -1,0 +1,13 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <img src="{{ asset('assets/images/Logo.png') }}" class="logo" alt="">
+    <div class="form-auth">
+        <form method="post" class="form-inline">
+            <div>
+                <input type="hidden" name="_token" value="{{ csrf_token('authenticate') }}">
+                <input name="username" type="text" class="input-auth" placeholder="Adresse e-mail">
+                <input name="password" type="password" class="input-auth" placeholder="Mot de passe">
+                <button type="submit" class="button-auth">Connexion</button>
+            </div>
+        </form>
+    </div>
+</div>

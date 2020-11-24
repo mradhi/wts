@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Discussions{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include '_header_user.html.twig' %}
+    {% include '_sidebar_user.html.twig' %}
+
+    <div class="conteneur">
+        <div>
+            <h3 class="titre-accueil">Bienvenue
+                <rose>{{ app.user.firstName }}</rose>
+            </h3>
+            <p class="p-cont">
+                Vous pouvez publier vos commentaires.
+                Ceci sera visible pour tout le monde.
+            </p>
+        </div>
+
+        {{ form_start(form, {'attr': {'class': 'form-pub'}}) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control text-area', 'placeholder': 'Vous pouvez publier un commentaire ici ' ~ app.user.firstName}}) }}
+        <div class="button-pub">
+            <button type="submit" class="btn btn-success button-insc">Publier</button>
+            <a href="{{ path('app_idea_forum') }}" type="button" class="btn btn-success button-insc">Annuler</a>
+        </div>
+        {{ form_end(form) }}
+
+
+        {% for comment in comments %}
+            <div class="pub">
+                <p class="titre-pub">{{ comment.user.fullName }} : <span
+                            class="date-pub">{{ comment.createdAt|date('h:i d/m/Y') }}</span></p>
+                <div class="statut-pub">
+                    {{ comment.content }}
+                    {% if app.user == comment.user %}
+                        <ul class="liste-pub">
+                            <li class="liens-pub"><a href="{{ path('app_comments_edit', {'comment': comment.id}) }}">Modifier</a>
+                            </li>
+                            <li class="liens-pub"><a href="{{ path('app_comments_delete', {'comment': comment.id}) }}">Supprimer</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des conversations{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include '_header_user.html.twig' %}
+    {% include '_sidebar_user.html.twig' %}
+
+    <div class="conteneur">
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Envoyer un message à
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    {% for user in context.users %}
+                        {% if user != app.user %}
+                            <li class="list-group-item">
+                                <a href="{{ path('app_conversations_messages', {'receiver': user.id}) }}" style="font-weight: bold">{{ user.fullName }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

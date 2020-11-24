@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include '_header_user.html.twig' %}
+    {% include '_sidebar_user.html.twig' %}
+
+    <div class="conteneur">
+
+        <div class="panel panel-info">
+            <div class="panel-body">
+                {% for message in messages %}
+                    <ul class="list-group">
+                        <b>{{ message.sender.fullName }}:</b> {{ message.message }}
+                        <div>
+                            <small style="color: lightgrey">Envoyé le {{ message.createdAt|date('d/m/Y à H:i') }}</small>
+                        </div>
+                    </ul>
+                {% endfor %}
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-success">Envoyer</button>
+                {{ form_end(form) }}
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

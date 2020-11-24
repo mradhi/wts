@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier votre commentaire{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include '_header_user.html.twig' %}
+    {% include '_sidebar_user.html.twig' %}
+
+    <div class="conteneur">
+        <div>
+            <p class="p-cont">
+                Modifier votre commentaire
+            </p>
+        </div>
+
+        {{ form_start(form, {'attr': {'class': 'form-pub'}}) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control text-area', 'placeholder': 'Vous pouvez écrire votre commentaire ici ' ~ app.user.firstName}}) }}
+        <div class="button-pub">
+            <button type="submit" class="btn btn-success button-insc">Modifier</button>
+            <a href="{{ path('app_idea_forum') }}" type="button" class="btn btn-success button-insc">Annuler</a>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
