@@ -125,7 +125,7 @@ class AppController extends AbstractController
 
             $this->addFlash('success', 'Point importé avec succés.');
 
-            return $this->redirectToRoute('app_idea_import');
+            return $this->redirectToRoute('app_idea_map');
         }
 
         $importForm = $this->createForm(ImportPointsType::class, $importRequest = new ImportPoints());
@@ -151,7 +151,7 @@ class AppController extends AbstractController
 
             $this->addFlash('success', 'Points importé avec succés.');
 
-            return $this->redirectToRoute('app_idea_import');
+            return $this->redirectToRoute('app_idea_map');
         }
 
         return $this->render('import.html.twig', [
