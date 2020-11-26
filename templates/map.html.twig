@@ -176,8 +176,8 @@
 
         let map = L.map('map', {
             layers: [OpenStreetMap],
-            center: [0, 0],
-            zoom: 14,
+            center: [34.30714, 9.84375],
+            zoom: 6,
             maxZoom: 18	//// zoom by default
         });
 
@@ -198,6 +198,7 @@
         L.control.mousePosition({position: 'bottomright'}).addTo(map);
 
         // add leaflet controls with some options to the map
+        map.pm.setLang('fr');
         map.pm.addControls({
             position: 'topleft',
             drawCircle: false,
