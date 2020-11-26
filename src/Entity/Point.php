@@ -162,15 +162,20 @@ class Point
         return $this->createdAt;
     }
 
-    public function isUserAlreadyVoted(UserInterface $user): bool
+    public function getUserVote(UserInterface $user): ?PointVote
     {
         foreach ($this->votes as $vote) {
             if ($user === $vote->getUser()) {
-                return true;
+                return $vote;
             }
         }
 
-        return false;
+        return null;
+    }
+
+    public function isUserAlreadyVoted(UserInterface $user): bool
+    {
+        return null !== $this->getUserVote($user);
     }
 
     public function getReliability(): float

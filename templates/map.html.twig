@@ -152,6 +152,108 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="marker-popup-upvoted row">
+            <div class="center-block" style="width: 50%">
+                <div class="c100 p[reliability] small" style="margin-right: 5px;">
+                    <span>[reliability]%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div>
+
+                <div class="vote" style="display: flex; flex-direction:column; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <span style="color: gray; font-size: 18px">
+                            <i class="glyphicon glyphicon-chevron-up"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <a style="color: red; font-size: 18px"
+                           href="/app/vote/[id]/down">
+                            <i class="glyphicon glyphicon-chevron-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Par</th>
+                    <td>[user]</td>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <td>[identifier]</td>
+                </tr>
+                <tr>
+                    <th>X</th>
+                    <td>[x]</td>
+                </tr>
+                <tr>
+                    <th>Y</th>
+                    <td>[y]</td>
+                </tr>
+                <tr>
+                    <th>Z</th>
+                    <td>[z]</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="marker-popup-downvoted row">
+            <div class="center-block" style="width: 50%">
+                <div class="c100 p[reliability] small" style="margin-right: 5px;">
+                    <span>[reliability]%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div>
+
+                <div class="vote" style="display: flex; flex-direction:column; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <a style="color: green; font-size: 18px"
+                           href="/app/vote/[id]/up">
+                            <i class="glyphicon glyphicon-chevron-up"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <span style="color: gray; font-size: 18px">
+                            <i class="glyphicon glyphicon-chevron-down"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Par</th>
+                    <td>[user]</td>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <td>[identifier]</td>
+                </tr>
+                <tr>
+                    <th>X</th>
+                    <td>[x]</td>
+                </tr>
+                <tr>
+                    <th>Y</th>
+                    <td>[y]</td>
+                </tr>
+                <tr>
+                    <th>Z</th>
+                    <td>[z]</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
 
@@ -207,7 +309,15 @@
         $.get('{{ path('app_idea_api_points') }}', function (data) {
             data.forEach(function (point) {
                 // Get the div
-                let popupContent = point.voted ? $('.marker-popup-voted').clone() : $('.marker-popup-unvoted').clone();
+                let popupContent = $('.marker-popup-unvoted').clone();
+
+                if (point.voted) {
+                    if (point.up_voted) {
+                        popupContent = $('.marker-popup-upvoted').clone();
+                    } else {
+                        popupContent = $('.marker-popup-downvoted').clone();
+                    }
+                }
 
                 popupContent = popupContent.html()
                     .replaceAll('[reliability]', point.reliability)

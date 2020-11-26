@@ -72,33 +72,48 @@
                                     </div>
                                     <div class="vote"
                                          style="display: flex; flex-direction:column; flex-wrap: wrap; gap: 20px;">
+                                        {% set user_vote = point.userVote(app.user) %}
 
-                                        {% if point.userAlreadyVoted(app.user) %}
-                                            <div>
-                                                <span style="color: gray">
-                                                    <i class="glyphicon glyphicon-chevron-up"></i>
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span style="color: gray">
-                                                    <i class="glyphicon glyphicon-chevron-down"></i>
-                                                </span>
-                                            </div>
-                                        {% else %}
+                                        {% set can_up_vote = true %}
+                                        {% set can_down_vote = true %}
+
+                                        {% if user_vote is not null %}
+                                            {% if user_vote.positive %}
+                                                {% set can_up_vote = false %}
+                                            {% else %}
+                                                {% set can_down_vote = false %}
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if can_up_vote %}
                                             <div>
                                                 <a style="color: green"
                                                    href="{{ path('app_idea_upvote', {'point': point.id}) }}">
                                                     <i class="glyphicon glyphicon-chevron-up"></i>
                                                 </a>
                                             </div>
+                                        {% else %}
+                                            <div>
+                                                <span style="color: gray">
+                                                    <i class="glyphicon glyphicon-chevron-up"></i>
+                                                </span>
+                                            </div>
+                                        {% endif %}
+
+                                        {% if can_down_vote %}
                                             <div>
                                                 <a style="color: red"
                                                    href="{{ path('app_idea_downvote', {'point': point.id}) }}">
                                                     <i class="glyphicon glyphicon-chevron-down"></i>
                                                 </a>
                                             </div>
+                                        {% else %}
+                                            <div>
+                                                <span style="color: gray">
+                                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                                </span>
+                                            </div>
                                         {% endif %}
-
                                     </div>
                                 </td>
 

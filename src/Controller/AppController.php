@@ -14,6 +14,7 @@ use App\Form\PointType;
 use App\Form\PostType;
 use App\Repository\CommentRepository;
 use App\Repository\PointRepository;
+use App\Repository\PointVoteRepository;
 use App\Repository\PostRepository;
 use App\Request\ExportPoints;
 use App\Request\ImportPoints;
@@ -238,17 +239,27 @@ class AppController extends AbstractController
      * @param Request                $request
      * @param Point                  $point
      * @param EntityManagerInterface $entityManager
+     * @param PointVoteRepository    $voteRepository
      *
      * @return Response
      *
      * @Route("/vote/{point}/up", name="upvote")
      */
-    public function upVote(Request $request, Point $point, EntityManagerInterface $entityManager): Response
+    public function upVote(Request $request, Point $point, EntityManagerInterface $entityManager, PointVoteRepository $voteRepository): Response
     {
-        $vote = new PointVote();
-        $vote->doUpVote($this->getUser(), $point);
+        // Search a vote from the same user for that point
+        $user = $this->getUser();
 
-        $entityManager->persist($vote);
+        if (null === $vote = $voteRepository->findOneByUser($user, $point)) {
+            $vote = new PointVote();
+        }
+
+        $vote->doUpVote($user, $point);
+
+        if (null === $vote->getId()) {
+            $entityManager->persist($vote);
+        }
+
         $entityManager->flush();
 
         $this->addFlash('success', 'Merci pour votre vote.');
@@ -262,17 +273,27 @@ class AppController extends AbstractController
      * @param Request                $request
      * @param Point                  $point
      * @param EntityManagerInterface $entityManager
+     * @param PointVoteRepository    $voteRepository
      *
      * @return Response
      *
      * @Route("/vote/{point}/down", name="downvote")
      */
-    public function downVote(Request $request, Point $point, EntityManagerInterface $entityManager): Response
+    public function downVote(Request $request, Point $point, EntityManagerInterface $entityManager, PointVoteRepository $voteRepository): Response
     {
-        $vote = new PointVote();
-        $vote->doDownVote($this->getUser(), $point);
+        // Search a vote from the same user for that point
+        $user = $this->getUser();
 
-        $entityManager->persist($vote);
+        if (null === $vote = $voteRepository->findOneByUser($user, $point)) {
+            $vote = new PointVote();
+        }
+
+        $vote->doDownVote($user, $point);
+
+        if (null === $vote->getId()) {
+            $entityManager->persist($vote);
+        }
+
         $entityManager->flush();
 
         $this->addFlash('success', 'Merci pour votre vote.');
@@ -294,6 +315,22 @@ class AppController extends AbstractController
         $result = [];
 
         foreach ($pointRepository->findRecent() as $point) {
+            $vote = $point->getUserVote($this->getUser());
+            $upVoted = false;
+            $downVoted = false;
+            $voted = false;
+
+            if (null !== $vote) {
+                $voted = true;
+
+                if ($vote->isPositive()) {
+                    $upVoted = true;
+                } else {
+                    $downVoted = true;
+                }
+            }
+
+
             $result[] = [
                 'id' => $point->getId(),
                 'identifier' => $point->getIdentifier(),
@@ -301,8 +338,10 @@ class AppController extends AbstractController
                 'y' => $point->getY(),
                 'z' => $point->getZ(),
                 'reliability' => $point->getReliability(),
-                'voted' => $point->isUserAlreadyVoted($this->getUser()),
-                'user' => $point->getUser()->getFullName()
+                'voted' => $voted,
+                'user' => $point->getUser()->getFullName(),
+                'up_voted' => $upVoted,
+                'down_voted' => $downVoted
             ];
         }
 
