@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/circle.css') }}">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@latest/dist/L.Control.Locate.min.css" />
 
 {% endblock %}
 
@@ -262,13 +263,18 @@
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin=""></script>
 
+    <script src="{{ asset('assets/js/L.LatLng.UTM.js') }}"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.js"
             integrity="sha512-WL3nAJlWFKoDShduxQRyY3wkBnQsINXdIfWIW48ZaPgYz1wYNnxIwFMMgigzSgjNBC2WWZ8Y8/sSyUU6abuF0g=="
             crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-mouse-position@1.2.0/src/L.Control.MousePosition.min.js"></script>
+    <script src="{{ asset('assets/js/L.Control.MousePosition.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@geoman-io/leaflet-geoman-free@2.8.0/dist/leaflet-geoman.min.js"
             integrity="sha256-6GhnMfh48/pMAq9Jtd1b4eUe9OsKdrQ9tlVO1Vs0L68=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@latest/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+    <script src="{{ asset('assets/js/leaflet-search.js') }}"></script>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -299,6 +305,23 @@
         // Add the mouse position to the map
         L.control.mousePosition({position: 'bottomright'}).addTo(map);
 
+        map.addControl( new L.Control.Search({
+            url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
+            jsonpParam: 'json_callback',
+            propertyName: 'display_name',
+            propertyLoc: ['lat','lon'],
+            marker: false,
+            zoom: 10,
+            autoCollapse: true,
+            autoType: false,
+            minLength: 2,
+            position: 'topright',
+            textPlaceholder: 'Rechercher...',
+            textCancel: 'Annuler'
+        }) );
+
+        L.control.locate({position: 'topright'}).addTo(map);
+
         // add leaflet controls with some options to the map
         map.pm.setLang('fr');
         map.pm.addControls({
@@ -326,9 +349,10 @@
                     .replaceAll('[x]', point.x)
                     .replaceAll('[y]', point.y)
                     .replaceAll('[z]', point.z)
-                    .replaceAll('[user]', point.user)
+                    .replaceAll('[user]', point.user);
 
-                L.marker([point.x, point.y])
+                let latlng = L.utm({x: point.x, y: point.y, zone: 32, band: 'N', southHemi: false}).latLng();
+                L.marker([latlng.lat, latlng.lng])
                     .addTo(map)
                     .bindPopup(popupContent, {minWidth: 175});
             });
