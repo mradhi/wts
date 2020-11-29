@@ -85,7 +85,7 @@
                                             {% endif %}
                                         {% endif %}
 
-                                        {% if can_up_vote %}
+                                        {% if can_up_vote and app.user != point.user %}
                                             <div>
                                                 <a style="color: green"
                                                    href="{{ path('app_idea_upvote', {'point': point.id}) }}">
@@ -100,7 +100,7 @@
                                             </div>
                                         {% endif %}
 
-                                        {% if can_down_vote %}
+                                        {% if can_down_vote and app.user != point.user %}
                                             <div>
                                                 <a style="color: red"
                                                    href="{{ path('app_idea_downvote', {'point': point.id}) }}">

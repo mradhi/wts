@@ -341,7 +341,8 @@ class AppController extends AbstractController
                 'voted' => $voted,
                 'user' => $point->getUser()->getFullName(),
                 'up_voted' => $upVoted,
-                'down_voted' => $downVoted
+                'down_voted' => $downVoted,
+                'can_vote' => $this->getUser() !== $point->getUser()
             ];
         }
 

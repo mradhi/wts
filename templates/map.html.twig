@@ -342,6 +342,10 @@
                     }
                 }
 
+                if (!point.can_vote) {
+                    popupContent = $('.marker-popup-voted').clone();
+                }
+
                 popupContent = popupContent.html()
                     .replaceAll('[reliability]', point.reliability)
                     .replaceAll('[id]', point.id)
