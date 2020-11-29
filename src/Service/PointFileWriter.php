@@ -6,12 +6,13 @@ namespace App\Service;
 use App\Entity\Point;
 use Doctrine\Common\Collections\Collection;
 use League\Csv\Writer;
-use SplFileObject;
 
 class PointFileWriter
 {
     /**
      * @param Collection|Point[] $points
+     *
+     * @return string
      */
     public function write(Collection $points): string
     {
