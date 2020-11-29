@@ -24,11 +24,16 @@
     </div>
 
     <div class="cnt2">
+        {% if error %}
+            <div class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
         <h3 class="titre-text2">Debout pour plus de précision</h3>
         <p class="p-texte2">
-            <rose>C'est la plateforme</rose> qui aide les géomètres à connaitre les coordonnées de points de rattachement établis
+            <rose>C'est la plateforme</rose>
+            qui aide les géomètres à connaitre les coordonnées de points de rattachement établis
             dans les divers projets et qui apporte non seulement de rapidité et de précision aux portes, mais qui les
-            ouvre également. WTS c'est le synonyme d'innovation, d'optimisme, de rapidité et surtout <rose>de service.</rose>
+            ouvre également. WTS c'est le synonyme d'innovation, d'optimisme, de rapidité et surtout
+            <rose>de service.</rose>
         </p>
         <img src="{{ asset('assets/images/platforme.png') }}" class="image" alt="">
     </div>
