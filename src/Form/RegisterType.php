@@ -20,21 +20,40 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom'
+                'attr' => [
+                    'placeholder'=> 'Prénom'
+                ],
+                'label' => false
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom de famille'
+                'attr' => [
+                    'placeholder' => 'Nom de famille'
+                ],
+                'label' => false
             ])
             ->add('username', EmailType::class, [
-                'label' => 'Adresse e-mail'
+                'attr' => [
+                    'placeholder' => 'Adresse e-mail'
+                ],
+                'label' => false
             ])
+
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
                 'invalid_message' => 'The password fields must match.',
-                'first_options'  => ['label' => 'Nouveau mot de passe'],
-                'second_options' => ['label' => 'Confirmer mot de passe']
+                'first_options'  => ['attr' => [
+                    'placeholder' => 'Nouveau mot de passe'
+                    ],
+                    'label' => false
+                ],
+                'second_options' => ['attr' => [ 
+                    'placeholder' => 'Confirmer mot de passe'
+                    ],
+                    'label' => false
+                ],
             ])
+
             ->add('birthDate', BirthdayType::class, [
                 'label' => 'Date de naissance'
             ])
