@@ -19,6 +19,7 @@ class PointFileWriter
     {
         $writer = Writer::createFromString();
         $writer->setOutputBOM(Writer::BOM_UTF8);
+        $writer->setDelimiter(',');
         // Add header
         $writer->insertOne(['identifier', 'x', 'y', 'z']);
 
