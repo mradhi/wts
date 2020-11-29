@@ -14,7 +14,7 @@ class PointFileReader
     {
         $csv = Reader::createFromPath($file->getRealPath(), 'r');
         $csv->setOutputBOM(Reader::BOM_UTF8);
-        $csv->setDelimiter(',');
+        $csv->setDelimiter(';');
         $csv->setHeaderOffset(0);
 
         return (new Statement())->process($csv);
