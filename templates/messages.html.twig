@@ -16,11 +16,18 @@
         <div class="panel panel-info">
             <div class="panel-body">
                 {% for message in messages %}
-                    <ul class="list-group">
-                        <b>{{ message.sender.fullName }}:</b> {{ message.message }}
+                    {% set sender = message.sender %}
+                    {% if sender == app.user %}
+                        {% set sender = 'Moi' %}
+                    {% else %}
+                        {% set sender = sender.fullName %}
+                    {% endif %}
+                    <ul class="list-group" style="margin-bottom: 10px;">
                         <div>
-                            <small style="color: lightgrey">Envoyé le {{ message.createdAt|date('d/m/Y à H:i') }}</small>
+                            <small style="color: lightgrey">Envoyé
+                                le {{ message.createdAt|date('d/m/Y à H:i') }}</small>
                         </div>
+                        <b>{{ sender }}:</b> {{ message.message }}
                     </ul>
                 {% endfor %}
 
