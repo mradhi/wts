@@ -36,7 +36,7 @@
                 <p class="titre-pub">Votre publication : <span
                             class="date-pub">{{ post.createdAt|date('h:i d/m/Y') }}</span></p>
                 <div class="statut-pub">
-                    {{ post.content }}
+                    {{ post.content|nl2br }}
                     <ul class="liste-pub">
                         <li class="liens-pub"><a href="{{ path('app_posts_edit', {'post': post.id}) }}">Modifier</a>
                         </li>
