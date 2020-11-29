@@ -114,6 +114,19 @@ body {
 	left: 10px;
 }
 /*Fin Formulaire d'inscription*/
+.msg-auth{
+	position: absolute;
+	top: 56px;
+	left: 860px;
+	width: 383px;
+	border-radius: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-weight: bold;
+	text-align: center;
+	color: #a94442;
+	background: #ebccd1;
+}
 .cnt2 {
 	float: right;
 	width: 520px;

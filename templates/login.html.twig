@@ -22,11 +22,10 @@
             {{ form_end(register_form) }}
         </div>
     </div>
-
+    {% if error %}
+        <div class="msg-auth">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
     <div class="cnt2">
-        {% if error %}
-            <div class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
         <h3 class="titre-text2">Debout pour plus de précision</h3>
         <p class="p-texte2">
             <rose>C'est la plateforme</rose>
