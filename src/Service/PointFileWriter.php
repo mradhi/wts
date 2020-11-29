@@ -5,6 +5,7 @@ namespace App\Service;
 
 use App\Entity\Point;
 use Doctrine\Common\Collections\Collection;
+use League\Csv\Reader;
 use League\Csv\Writer;
 
 class PointFileWriter
@@ -17,7 +18,7 @@ class PointFileWriter
     public function write(Collection $points): string
     {
         $writer = Writer::createFromString();
-
+        $writer->setOutputBOM(Writer::BOM_UTF8);
         // Add header
         $writer->insertOne(['identifier', 'x', 'y', 'z']);
 

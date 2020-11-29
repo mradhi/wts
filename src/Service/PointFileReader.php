@@ -13,6 +13,7 @@ class PointFileReader
     public function read(UploadedFile $file): TabularDataReader
     {
         $csv = Reader::createFromPath($file->getRealPath(), 'r');
+        $csv->setOutputBOM(Reader::BOM_UTF8);
         $csv->setHeaderOffset(0);
 
         return (new Statement())->process($csv);
