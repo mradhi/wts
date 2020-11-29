@@ -246,7 +246,7 @@ rose{
 .leaflet-control-search .search-tip {
 	margin:2px;
 	padding:2px 4px;
-	display:table;
+	display:block;
 	color:black;
 	background: #eee;
 	border-radius:.25em;
