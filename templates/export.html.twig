@@ -117,7 +117,7 @@
                                     </div>
                                 </td>
 
-                                {% if is_admin %}
+                                {% if is_admin or point.user == app.user %}
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
                                             <a href="{{ path('app_idea_points_edit', {'point': point.id}) }}"
