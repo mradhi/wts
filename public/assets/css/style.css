@@ -45,7 +45,7 @@ body {
 	position: relative;
 	width: 180px;
 	margin-top: 5px;
-	max-height: 38%;
+	max-height: 61%;
 	margin-bottom: 15px;
 	background: white;
 }
@@ -74,13 +74,22 @@ body {
 /* Fin sidebar */
 .conteneur{
 	position: relative;
-	width: 900px;
+	width: 740px;
 	height: auto;
 	left: 330px;
 	top: 75px;
 	padding-bottom: 20px;
 	margin-bottom: 30px;
 	/* background: rgb(66, 42, 202); */
+}
+.conteneur-exp{
+	position: relative;
+	width: 900px;
+	height: auto;
+	left: 330px;
+	top: 75px;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
 }
 .titre-accueil{
 	margin-top: 0;

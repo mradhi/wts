@@ -23,7 +23,7 @@
 
     {% set is_admin = app.user.username == 'admin@mail.com' %}
 
-    <div class="conteneur">
+    <div class="conteneur-exp">
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
