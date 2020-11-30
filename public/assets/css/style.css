@@ -280,4 +280,37 @@ rose{
 	font-weight:bold;
 	border-radius:.25em;
 }
-
+	/* Début _sidebar_documents */
+	.docs{
+		position: fixed;
+		padding-top: 10px;
+		top: 100px;
+		right: 50px;
+		width: 190px;
+		height: 80%;
+		/* background:white; */
+	}
+	.titre-docs{
+		font-weight: bold;
+		font-size: 13px;
+		line-height: 35%;
+		margin-left: 6px;
+		margin-bottom: 8px;
+	}
+	.cont-docs{
+		position: relative;
+		width: 180px;
+		margin-top: 5px;
+		margin-bottom: 15px;
+		background: white;
+	}
+	.list-docs{
+		list-style-type: none;
+		padding-top: 5px;
+		padding-left: 10px;
+	}
+	.liens-docs{
+		margin-left: 3px;
+		margin-bottom: 10px;
+	}
+		/* Fin _sidebar_documents */
