@@ -37,7 +37,7 @@
                 <p class="titre-pub">{{ comment.user.fullName }} : <span
                             class="date-pub">{{ comment.createdAt|date('h:i d/m/Y') }}</span></p>
                 <div class="statut-pub">
-                    {{ comment.content }}
+                    {{ comment.content|nl2br }}
                     {% if app.user == comment.user %}
                         <ul class="liste-pub">
                             <li class="liens-pub"><a href="{{ path('app_comments_edit', {'comment': comment.id}) }}">Modifier</a>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Criteria;
 
 class Context
 {
@@ -16,6 +17,6 @@ class Context
 
     public function getUsers(): array
     {
-        return $this->userRepository->findAll();
+        return $this->userRepository->findBy([], ['firstName' => Criteria::ASC]);
     }
 }
