@@ -80,6 +80,7 @@ body {
 	top: 75px;
 	padding-bottom: 20px;
 	margin-bottom: 30px;
+	overflow-x: hidden;
 	/* background: rgb(66, 42, 202); */
 }
 .conteneur-exp{
