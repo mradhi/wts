@@ -275,7 +275,7 @@
             integrity="sha256-6GhnMfh48/pMAq9Jtd1b4eUe9OsKdrQ9tlVO1Vs0L68=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@latest/dist/L.Control.Locate.min.js" charset="utf-8"></script>
     <script src="{{ asset('assets/js/leaflet-search.js') }}"></script>
-
+    <script src="{{ asset('assets/js/Leaflet.fullscreen.min.js') }}"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -305,6 +305,14 @@
 
         // Add the mouse position to the map
         L.control.mousePosition({position: 'bottomright'}).addTo(map);
+
+        map.addControl(new L.Control.Fullscreen({
+            position: 'topright',
+            title: {
+                'false': 'Voir plein écran',
+                'true': 'Quitter le mode plein écran'
+            }
+        }));
 
         map.addControl( new L.Control.Search({
             url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
